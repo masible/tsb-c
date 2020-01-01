@@ -388,8 +388,10 @@ deviceinfo_t *enter_program_mode(int serial_fd) {
 
     if(pdi->magic[0] != 't' &&
        pdi->magic[1] != 's' &&
-       pdi->magic[2] != 'b')
+       pdi->magic[2] != 'b') {
+        hexdump(pdi->magic, sizeof(pdi->magic));
         FEXIT("Error talking to firmware");
+    }
 
     /* why? */
     pdi->mem_size *= 2;

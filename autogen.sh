@@ -14,7 +14,7 @@ for d in $(dirname $(readlink -f $0))/config $(dirname $(readlink -f $0))/m4; do
     fi
 done
 
-if ! autoreconf --force --verbose -I config; then
+if ! autoreconf --force --verbose --install -I config; then
     echo "autogen.sh: error: cannot execute autoreconf"
     exit 1
 fi

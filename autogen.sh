@@ -18,3 +18,5 @@ if ! autoreconf --force --verbose --install -I config; then
     echo "autogen.sh: error: cannot execute autoreconf"
     exit 1
 fi
+
+test -n "$NOCONFIGURE" || "./configure" "$@"

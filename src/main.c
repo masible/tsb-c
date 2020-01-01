@@ -379,8 +379,12 @@ deviceinfo_t *enter_program_mode(int serial_fd) {
         PEXIT("write @");
 
     bytes_read = device_read(serial_fd, (char*)pdi, sizeof(deviceinfo_t), 3);
-    if(bytes_read < sizeof(deviceinfo_t))
+    if(bytes_read < 0)
         PEXIT("read devinfo");
+    if(bytes_read < sizeof(deviceinfo_t)) {
+        ERROR("read devinfo: read %d instead of %d bytes", bytes_read, sizeof(deviceinfo_t));;
+        exit(EXIT_FAILURE);
+    }
 
     if(pdi->magic[0] != 't' &&
        pdi->magic[1] != 's' &&
